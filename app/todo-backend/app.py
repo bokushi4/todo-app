@@ -1,4 +1,4 @@
-from chalice import Chalice, NotFoundError
+from chalice import BadRequestError, Chalice, NotFoundError
 from chalicelib import database
 
 
@@ -17,6 +17,17 @@ def get_todo(todo_id):
         return todo
     else:
         raise NotFoundError("ToDo not found.")  # 404 error
+
+
+@app.route("/todos", methods=["POST"])
+def create_todo():
+    todo = app.current_request.json_body
+
+    for key in ["title", "memo", "priority"]:
+        if key not in todo:
+            raise BadRequestError(f"{key} is required.")
+        
+    return database.create_todo(todo)
 
 
 @app.route('/')
