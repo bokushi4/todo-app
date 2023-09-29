@@ -1,0 +1,17 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    volumes:
+      - .:/opt/todo_app/
+      - ~/.aws:/root/.aws
+    tty: true
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    volumes:
+      - .:/opt/todo_app/
+      - ~/.aws:/root/.aws
+    tty: true
