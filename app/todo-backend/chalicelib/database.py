@@ -62,3 +62,16 @@ def update_todo(todo_id, changes):
     )
 
     return result["Attributes"]
+
+
+def delete_todo(todo_id):
+    table = _get_database().Table(os.environ.get("DB_TABLE_NAME"))
+
+    result = table.delete_item(
+        Key={
+            "id": todo_id,
+        },
+        ReturnValues="ALL_OLD"
+    )
+
+    return result["Attributes"]

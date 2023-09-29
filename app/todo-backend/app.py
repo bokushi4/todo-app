@@ -36,6 +36,11 @@ def update_todo(todo_id):
     return database.update_todo(todo_id, changes)
 
 
+@app.route("/todos/{todo_id}", methods=["DELETE"])
+def delete_todo(todo_id):
+    return database.delete_todo(todo_id)
+
+
 @app.route('/')
 def index():
     return {'hello': 'world'}
