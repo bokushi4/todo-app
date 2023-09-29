@@ -9,6 +9,7 @@ services:
       - .:/opt/todo_app/
       - ~/.aws:/root/.aws
     tty: true
+    network_mode: host
   frontend:
     build:
       context: .
@@ -25,3 +26,4 @@ services:
       - "./docker/dynamodb:/home/dynamodblocal/data"
     ports:
       - 8000:8000
+    tty: true
