@@ -26,8 +26,14 @@ def create_todo():
     for key in ["title", "memo", "priority"]:
         if key not in todo:
             raise BadRequestError(f"{key} is required.")
-        
+       
     return database.create_todo(todo)
+
+
+@app.route("/todos/{todo_id}", methods=["PUT"])
+def update_todo(todo_id):
+    changes = app.current_request.json_body
+    return database.update_todo(todo_id, changes)
 
 
 @app.route('/')
