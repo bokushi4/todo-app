@@ -1,6 +1,22 @@
-from chalice import Chalice
+from chalice import Chalice, NotFoundError
+from chalicelib import database
 
-app = Chalice(app_name='todo-backend')
+
+app = Chalice(app_name="todo-backend")
+
+
+@app.route("/todos", methods=["GET"])
+def get_all_todos():
+    return database.get_all_todos()
+
+
+@app.route("/todos/{todo_id}", methods=["GET"])
+def get_todo(todo_id):
+    todo = database.get_todo(todo_id)
+    if todo:
+        return todo
+    else:
+        raise NotFoundError("ToDo not found.")  # 404 error
 
 
 @app.route('/')
