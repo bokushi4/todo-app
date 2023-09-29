@@ -22,8 +22,10 @@ BLUE_THREE = [
     },
 ]
 
+
 def get_all_todos():
     return BLUE_THREE
+
 
 def get_todo(todo_id):
     for todo in BLUE_THREE:

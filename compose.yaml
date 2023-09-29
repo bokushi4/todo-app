@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: backend.Dockerfile
+    depends_on:
+      - dynamodb_local
     volumes:
       - .:/opt/todo_app/
       - ~/.aws:/root/.aws
@@ -15,3 +17,11 @@ services:
       - .:/opt/todo_app/
       - ~/.aws:/root/.aws
     tty: true
+  dynamodb_local:
+    build:
+      context: .
+      dockerfile: dynamodb_local.Dockerfile
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    ports:
+      - 8000:8000
