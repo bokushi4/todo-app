@@ -15,18 +15,39 @@ deploy_local:
 	&& chalice local --stage dev --port 8080
 
 deploy_dev:
-	chalice deploy --stage dev
+	cd app/todo-backend/ \
+	&& chalice deploy --stage dev
 
 delete_dev:
-	chalice delete --stage dev
+	cd app/todo-backend/ \
+	&& chalice delete --stage dev
 
-create_table:
+deploy_prod:
+	cd app/todo-backend/ \
+	&& chalice deploy --stage prod
+
+delete_prod:
+	cd app/todo-backend/ \
+	&& chalice delete --stage prod
+
+create_table_local:
 	cd app/dynamodb/ \
 	&& aws dynamodb create-table --cli-input-json file://schema.json --endpoint-url http://localhost:8000
 
-init_db:
+init_db_local:
 	cd app/dynamodb/ \
 	&& aws dynamodb batch-write-item --request-items file://initial-data.json --endpoint-url http://localhost:8000
 
-db_scan:
+db_scan_local:
 	aws dynamodb scan --table-name Todos --endpoint-url http://localhost:8000
+
+create_table_prod:
+	cd app/dynamodb/ \
+	&& aws dynamodb create-table --cli-input-json file://schema.json
+
+init_db_prod:
+	cd app/dynamodb/ \
+	&& aws dynamodb batch-write-item --request-items file://initial-data.json
+
+db_scan_prod:
+	aws dynamodb scan --table-name Todos

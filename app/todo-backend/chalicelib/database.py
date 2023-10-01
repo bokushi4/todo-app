@@ -15,7 +15,7 @@ def _get_database():
 def get_all_todos():
     table = _get_database().Table(os.environ.get("DB_TABLE_NAME"))
     response = table.scan()
-    return response["Items"] 
+    return response["Items"]
 
 
 def get_todo(todo_id):
